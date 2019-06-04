@@ -6,11 +6,10 @@ pragma solidity ^ 0.5.0;
 // deploy https://remix.ethereum.org
 
 
-/ ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // UBX 'UBEEX' token contract
 //
-// UBX tokens are mintable by the owner until the `disableMinting()` function
-// is executed. Tokens can be burnt by sending them to address ???
+// UBX tokens is     
 //
 // Deployed to : ???
 // Symbol      : UBX
@@ -100,7 +99,7 @@ contract ApproveAndCallFallBack {
     function receiveApproval(address from, uint256 tokens, address token, bytes memory data) public;
 }
 
-contract ERC20Interface {
+contract UBXTokenInterface {
     function totalSupply() public view returns(uint);
     function balanceOf(address tokenOwner) public view returns(uint balance);
     function allowance(address tokenOwner, address spender) public view returns(uint remaining);
@@ -111,10 +110,10 @@ contract ERC20Interface {
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
 
-contract ERC20Token is ERC20Interface, Owned {
+contract UBXToken is UBXTokenInterface, Owned {
     using SafeMath for uint;
 
-        string public symbol;
+    string public symbol;
     string public name;
     uint8 public decimals;
     uint _totalSupply;
@@ -177,7 +176,7 @@ contract ERC20Token is ERC20Interface, Owned {
 
     // Owner can transfer out any accidentally sent ERC20 tokens
     function transferAnyERC20Token(address tokenAddress, uint tokens) public onlyOwner returns(bool success) {
-        return ERC20Interface(tokenAddress).transfer(owner, tokens);
+        return UBXTokenInterface(tokenAddress).transfer(owner, tokens);
     }
     
     
